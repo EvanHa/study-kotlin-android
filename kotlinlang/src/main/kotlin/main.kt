@@ -1,24 +1,25 @@
 fun main(args: Array<String>) {
-    var x = 5
-    while ( x > 0 ) {
-        print("$x ")
-        x--
-    }
-    println("")
-    // 5 4 3 2 1
+    println("max : " + maxJavaStyle(1,2))
+    println("max : " + maxKotlinStyle(1,2))
+}
 
-    x = 0
-    while(x > 0) {
-        println(x)
-        x--
+fun maxJavaStyle(a:Int, b:Int):Int {
+    var max:Int
+    if (a > b) {
+        max = a
+    } else {
+        max = b
     }
-    // 출력 없음
+    return max
+}
 
-    var y = 0
-    do {
-        print(y)
-        y--
-    } while (y > 0)
-    println("")
-    // 0
+fun maxKotlinStyle(a:Int, b:Int):Int {
+    val max = if (a>b) {
+        println("Choose a")
+        a
+    } else {
+        println("Choose b")
+        b
+    }
+    return max
 }
