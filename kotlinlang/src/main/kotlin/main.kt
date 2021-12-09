@@ -1,25 +1,24 @@
 fun main(args: Array<String>) {
-    for (i in 1..5) {
-        print("" + i + " ")
-        if (i==5) println("")
-    }
-    // 1 2 3 4 5
-
-    for (i in 6 downTo 0 step 2) {
-        print("" + i + " ")
-        if (i==0) println("")
-    }
-    // 6 4 2 0
-
-    for (i in 1..5 step 3) {
-        print("" + i + " ")
+    var x = 5
+    while ( x > 0 ) {
+        print("$x ")
+        x--
     }
     println("")
-    // 1 4
+    // 5 4 3 2 1
 
-    val numberList = listOf(100, 200, 300)
-    for (number in numberList) {
-        println(number)
+    x = 0
+    while(x > 0) {
+        println(x)
+        x--
     }
-    // 100 200 300
+    // 출력 없음
+
+    var y = 0
+    do {
+        print(y)
+        y--
+    } while (y > 0)
+    println("")
+    // 0
 }
