@@ -16,6 +16,14 @@ import androidx.appcompat.app.AlertDialog
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivity"
 
+    private val soundVisualizerView: SoundVisualizerView by lazy {
+        findViewById(R.id.soundVisualizerView)
+    }
+
+    private val recordTimeTextView: CountUpView by lazy {
+        findViewById(R.id.recordTimeTextView)
+    }
+
     private val recordButton: RecordButton by lazy {
         findViewById(R.id.recordButton)
     }
@@ -101,7 +109,12 @@ class MainActivity : AppCompatActivity() {
         }
         resetButton.setOnClickListener {
             stopPlaying()
+            soundVisualizerView.clearVisualization()
+            recordTimeTextView.clearCountTime()
             state = State.BERFORE_RECORDING
+        }
+        soundVisualizerView.onRequestCurrentAmplitude = {
+            recorder?.maxAmplitude ?: 0
         }
     }
 
@@ -119,6 +132,8 @@ class MainActivity : AppCompatActivity() {
                     prepare()
                 }
         recorder?.start()
+        soundVisualizerView.startVisualizing(false)
+        recordTimeTextView.startCountUp()
         state = State.ON_RECORDING
         Log.d(TAG, "recording Path : " + recordingFilePath)
     }
@@ -129,6 +144,8 @@ class MainActivity : AppCompatActivity() {
             release()
         }
         recorder = null
+        soundVisualizerView.stopVisualizing()
+        recordTimeTextView.stopCountUp()
         state = State.AFTER_RECORDING
     }
 
@@ -144,12 +161,16 @@ class MainActivity : AppCompatActivity() {
             state = State.AFTER_RECORDING
         }
         player?.start()
+        soundVisualizerView.startVisualizing(true)
+        recordTimeTextView.startCountUp()
         state = State.ON_PLAYING
     }
 
     private fun stopPlaying() {
         player?.release()
         player = null
+        soundVisualizerView.stopVisualizing()
+        recordTimeTextView.stopCountUp()
         state = State.AFTER_RECORDING
     }
 
